@@ -7,6 +7,6 @@ public class UIManager : MonoBehaviour
 {
     public void GameStartButtonAction()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("DustGame");
     }
 }
