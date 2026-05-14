@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class FruitGame : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class FruitGame : MonoBehaviour
     public Camera mainCamera;
 
     public float fruitTimer;
+
+    public int score = 0;
+    public TextMeshPro scoreText;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -116,10 +121,28 @@ public class FruitGame : MonoBehaviour
 
     public void MergeFruits(int fruitType, Vector3 position)
     {
-        if(fruitType < fruitPerfabs.Length - 1)
+        if (fruitType < fruitPerfabs.Length - 1)
         {
+            // 합쳐질 때 점수 추가 (과일 타입에 따라 더 높은 점수를 줄 수도 있음)
+            AddScore((fruitType + 1) * 10);
+
             GameObject newFruit = Instantiate(fruitPerfabs[fruitType + 1], position, Quaternion.identity);
             newFruit.transform.localScale = new Vector3(fruitSize[fruitType + 1], fruitSize[fruitType + 1], 1.0f);
         }
     }
+
+    public void AddScore(int amount)
+    {
+        score += amount;
+        UpdateScoreUI();
+    }
+
+    void UpdateScoreUI()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score;
+        }
+    }
+
 }
